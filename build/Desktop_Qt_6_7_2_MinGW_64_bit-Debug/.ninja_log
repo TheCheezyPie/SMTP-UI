@@ -1,0 +1,21 @@
+# ninja log v6
+83	1179	7441242757522641	CMakeFiles/SMTP-Full.dir/mainwindow.cpp.obj	5a15b989cd2a918b
+10	83	7441242756785905	SMTP-Full_autogen/timestamp	3f9d71de76391b73
+10	83	7441242756785905	D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/SMTP-Full_autogen/mocs_compilation.cpp	3f9d71de76391b73
+10	83	7441242756785905	SMTP-Full_autogen/mocs_compilation.cpp	3f9d71de76391b73
+293	1144	7441194545592608	CMakeFiles/SMTP-Full.dir/SMTP-Full_autogen/mocs_compilation.cpp.obj	9cc9c702d6dcf35a
+10	83	7441242756785905	D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/SMTP-Full_autogen/timestamp	3f9d71de76391b73
+1179	1277	7441242768479014	SMTP-Full.exe	a37f588ef14b17b3
+294	1184	7441194545602613	CMakeFiles/SMTP-Full.dir/main.cpp.obj	12482a2c6eaa915c
+12	91	7441363011960070	SMTP-Full_autogen/timestamp	3f9d71de76391b73
+12	91	7441363011960070	SMTP-Full_autogen/mocs_compilation.cpp	3f9d71de76391b73
+12	91	7441363011960070	D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/SMTP-Full_autogen/timestamp	3f9d71de76391b73
+12	91	7441363011960070	D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/SMTP-Full_autogen/mocs_compilation.cpp	3f9d71de76391b73
+92	1164	7441363012756246	CMakeFiles/SMTP-Full.dir/mainwindow.cpp.obj	5a15b989cd2a918b
+1164	1262	7441363023476921	SMTP-Full.exe	a37f588ef14b17b3
+10	83	7441363396342400	SMTP-Full_autogen/timestamp	3f9d71de76391b73
+10	83	7441363396342400	SMTP-Full_autogen/mocs_compilation.cpp	3f9d71de76391b73
+10	83	7441363396342400	D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/SMTP-Full_autogen/timestamp	3f9d71de76391b73
+10	83	7441363396342400	D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/SMTP-Full_autogen/mocs_compilation.cpp	3f9d71de76391b73
+84	1147	7441363397073545	CMakeFiles/SMTP-Full.dir/mainwindow.cpp.obj	5a15b989cd2a918b
+1147	1243	7441363407710069	SMTP-Full.exe	a37f588ef14b17b3

@@ -1,0 +1,9 @@
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/SMTP-Full.dir
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/install.dir
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/SMTP-Full_autogen_timestamp_deps.dir
+D:/SoftServe/Qt/SMTP-Full/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/SMTP-Full_autogen.dir
