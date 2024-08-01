@@ -9,6 +9,12 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+enum class EPagesIndex : uint8_t
+{
+    LoginPage = 0,
+    MainPage = 1
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,6 +24,12 @@ public:
     ~MainWindow();
 
 private slots:
+
+    void on_LogInButton_released();
+
+    void on_AttachFileButton_released();
+
+    void on_EmailLine_editingFinished();
 
 private:
     Ui::MainWindow *ui;
