@@ -50,8 +50,11 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="LoginPage">
        <property name="sizePolicy">
@@ -67,7 +70,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(238, 255, 238);</string>
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
@@ -334,7 +337,7 @@ QPushButton:pressed
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(175, 255, 169);</string>
+        <string notr="true">background-color: rgb(228, 255, 224);</string>
        </property>
        <layout class="QGridLayout" name="horizontalLayout_2">
         <property name="leftMargin">
@@ -353,7 +356,7 @@ QPushButton:pressed
          <number>0</number>
         </property>
         <item row="0" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="Main_MainLayout">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -370,94 +373,129 @@ QPushButton:pressed
            <number>0</number>
           </property>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <property name="spacing">
-             <number>0</number>
+           <widget class="QWidget" name="SideMenuWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <item>
-             <widget class="QWidget" name="ProfileWidget" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>250</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(175, 255, 169);</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QWidget" name="Div" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>2</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>250</width>
-                <height>2</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(96, 255, 88);
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>250</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(175, 255, 169);</string>
+            </property>
+            <layout class="QVBoxLayout" name="SideMenuLayout">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QWidget" name="ProfileWidget" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>250</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(175, 255, 169);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="Div" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>2</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>250</width>
+                 <height>2</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(96, 255, 88);
 margin-left: 20px;
 margin-right: 20px;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QWidget" name="MailHistory" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>250</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="baseSize">
-               <size>
-                <width>250</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(175, 255, 169);</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="MailHistory" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>250</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>250</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(175, 255, 169);</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
            <widget class="QWidget" name="Div_4" native="true">
@@ -485,12 +523,12 @@ margin-right: 20px;</string>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0">
+           <layout class="QVBoxLayout" name="LetterLayout" stretch="0,0,0,0,0">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QWidget" name="MailInfo" native="true">
+             <widget class="QWidget" name="LetterInfoWidget" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -516,9 +554,15 @@ margin-right: 20px;</string>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(175, 255, 169);</string>
+               <string notr="true">background-color: rgb(228, 255, 224);</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_3">
+               <property name="leftMargin">
+                <number>20</number>
+               </property>
+               <property name="rightMargin">
+                <number>20</number>
+               </property>
                <item>
                 <widget class="QLineEdit" name="EmailLine">
                  <property name="font">
@@ -604,10 +648,16 @@ margin-right: 20px;</string>
                </sizepolicy>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(175, 255, 169);
+               <string notr="true">background-color: rgb(228, 255, 224);
 </string>
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
+               <property name="leftMargin">
+                <number>20</number>
+               </property>
+               <property name="rightMargin">
+                <number>20</number>
+               </property>
                <item row="1" column="0">
                 <widget class="QTextEdit" name="LetterBodyText">
                  <property name="font">
@@ -659,7 +709,7 @@ margin-right: 20px;</string>
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="MailManipulation" native="true">
+             <widget class="QWidget" name="LetterManipulationWidget" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -673,9 +723,15 @@ margin-right: 20px;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(175, 255, 169);</string>
+               <string notr="true">background-color: rgb(228, 255, 224);</string>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <property name="leftMargin">
+                <number>20</number>
+               </property>
+               <property name="rightMargin">
+                <number>20</number>
+               </property>
                <item>
                 <widget class="QPushButton" name="AttachFileButton">
                  <property name="sizePolicy">
@@ -737,14 +793,17 @@ QPushButton:pressed
                  <property name="font">
                   <font>
                    <family>Titillium Web</family>
-                   <pointsize>10</pointsize>
+                   <pointsize>9</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">color: rgb(0, 0, 0);</string>
                  </property>
                  <property name="text">
-                  <string>Example.exe</string>
+                  <string/>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
