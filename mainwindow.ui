@@ -558,13 +558,16 @@ margin-right: 20px;</string>
                 <property name="bottomMargin">
                  <number>9</number>
                 </property>
+                <property name="verticalSpacing">
+                 <number>20</number>
+                </property>
                 <item row="0" column="0">
                  <widget class="QWidget" name="MailHistoryWidget" native="true">
                   <property name="styleSheet">
-                   <string notr="true">    border: 1px solid black;
-    border-radius: 10px;
-    background: white;
-	color: black;</string>
+                   <string notr="true">border: 1px solid black;
+border-radius: 10px;
+background: white;
+color: black;</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_5">
                    <property name="leftMargin">
@@ -594,10 +597,35 @@ border: 0px solid white;</string>
                         <x>0</x>
                         <y>0</y>
                         <width>228</width>
-                        <height>409</height>
+                        <height>395</height>
                        </rect>
                       </property>
-                      <layout class="QGridLayout" name="gridLayout_4"/>
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>16777213</height>
+                       </size>
+                      </property>
+                      <layout class="QGridLayout" name="gridLayout_4">
+                       <property name="leftMargin">
+                        <number>9</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>9</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>9</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>9</number>
+                       </property>
+                       <property name="horizontalSpacing">
+                        <number>9</number>
+                       </property>
+                       <property name="verticalSpacing">
+                        <number>5</number>
+                       </property>
+                      </layout>
                      </widget>
                     </widget>
                    </item>

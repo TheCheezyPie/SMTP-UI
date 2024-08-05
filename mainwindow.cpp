@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QStringList>
 #include <QRegularExpression>
+#include "Custom/Mails/mailhistoryunit.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -40,22 +41,25 @@ void MainWindow::on_AttachFileButton_released()
     }
 }
 
-bool isValidEmail(const QString &email)
+bool MainWindow::isValidEmail(const QString &email)
 {
     static QRegularExpression emailRegex("^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$");
+
     QRegularExpressionMatch match = emailRegex.match(email);
     return match.hasMatch();
 }
 
 void MainWindow::on_EmailLine_editingFinished()
 {
+    static QRegularExpression SplitRegex("\\s*,\\s*|\\s+");
+
     QString Recipients = ui->EmailLine->text();
-    QStringList EmailList = Recipients.split(QRegularExpression("\\s*,\\s*|\\s+"), Qt::SkipEmptyParts);
+    QStringList EmailList = Recipients.split(SplitRegex, Qt::SkipEmptyParts);
     QStringList InvalidEmails;
 
     for (const QString &email : EmailList)
     {
-        if (isValidEmail(email))
+        if (!isValidEmail(email))
         {
             qDebug() << "Invalid email:" << email;
             InvalidEmails += email;
@@ -70,5 +74,13 @@ void MainWindow::on_EmailLine_editingFinished()
 
         QMessageBox::critical(this, "Invalid email detected!", msg);
     }
+}
+
+
+void MainWindow::on_SendButton_released()
+{
+    MailHistoryUnit* Test = new MailHistoryUnit("kormak1752@gmail.com", "Bombing of Donetsk children", "blah blah blah blah blah ");
+    ui->MailHistoryScrollArea->layout()->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    ui->MailHistoryScrollArea->layout()->addWidget(Test);
 }
 

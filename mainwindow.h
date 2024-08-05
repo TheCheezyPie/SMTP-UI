@@ -31,7 +31,10 @@ private slots:
 
     void on_EmailLine_editingFinished();
 
+    void on_SendButton_released();
+
 private:
     Ui::MainWindow *ui;
+    bool isValidEmail(const QString &email);
 };
 #endif // MAINWINDOW_H
