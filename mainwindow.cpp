@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_LogInButton_released()
 {
-    ui->PagesWidget->setCurrentIndex((int)EPagesIndex::MainPage);
+    ui->MainPagesStack->setCurrentIndex((int)EMainPagesIndex::MainPage);
 }
 
 
@@ -49,19 +49,25 @@ bool MainWindow::isValidEmail(const QString &email)
     return match.hasMatch();
 }
 
-void MainWindow::on_EmailLine_editingFinished()
+
+bool MainWindow::CheckEmails(const QLineEdit* Container)
 {
     static QRegularExpression SplitRegex("\\s*,\\s*|\\s+");
 
-    QString Recipients = ui->EmailLine->text();
+    QString Recipients = Container->text();       
     QStringList EmailList = Recipients.split(SplitRegex, Qt::SkipEmptyParts);
+    if (EmailList.isEmpty())
+    {
+        QMessageBox::critical(this, "No recipients!", "You haven't written any recipients!");
+        return false;
+    }
+
     QStringList InvalidEmails;
 
     for (const QString &email : EmailList)
     {
         if (!isValidEmail(email))
         {
-            qDebug() << "Invalid email:" << email;
             InvalidEmails += email;
         }
     }
@@ -73,14 +79,85 @@ void MainWindow::on_EmailLine_editingFinished()
         msg += R"*("!)*";
 
         QMessageBox::critical(this, "Invalid email detected!", msg);
+        return false;
     }
+    return true;
+}
+
+void MainWindow::on_EmailLine_editingFinished()
+{
+    CheckEmails(ui->EmailLine);
 }
 
 
 void MainWindow::on_SendButton_released()
 {
-    MailHistoryUnit* Test = new MailHistoryUnit("kormak1752@gmail.com", "Bombing of Donetsk children", "blah blah blah blah blah ");
-    ui->MailHistoryScrollArea->layout()->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    ui->MailHistoryScrollArea->layout()->addWidget(Test);
+    static QRegularExpression SplitRegex("\\s*,\\s*|\\s+");
+
+    if (!CheckEmails(ui->EmailLine)) return;
+
+    QString Recipients = ui->EmailLine->text();
+    QStringList EmailList = Recipients.split(SplitRegex, Qt::SkipEmptyParts);
+
+    QString LetterSubject = ui->SubjectLine->text();
+    QString LetterBody = ui->LetterBodyText->toPlainText();
+
+    for (const QString& Recipient : EmailList)
+    {
+        QDate CurrentDate = QDate::currentDate();
+
+        QString TempFilePath = R"*(D:\SoftServe\Temp\)*";
+        QString FileName = m_current_user + "_" + Recipient + "_" + CurrentDate.toString("dd-MM-yyyy");
+        QString FullFileName = TempFilePath + FileName;
+
+        QFile file(FullFileName);
+        if (!file.open(QIODevice::WriteOnly))
+        {
+            qDebug() << "Could not open file for writing";
+            return;
+        }
+
+        QDataStream out(&file);
+        out.setVersion(QDataStream::Qt_6_7);
+
+        LetterStruct Letter(m_current_user, Recipient, CurrentDate, LetterSubject, LetterBody);
+
+        MailHistoryUnit* NewHistoryUnit = new MailHistoryUnit(Letter);
+        ui->MailHistoryScrollArea->layout()->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+        ui->MailHistoryScrollArea->layout()->addWidget(NewHistoryUnit);
+
+        connect(NewHistoryUnit, SIGNAL(OnMouseReleased(QVector<LetterStruct>)), this, SLOT(HistoryWidgets(QVector<LetterStruct>)));
+
+        out << Letter;
+
+        file.close();
+    }
+}
+
+void MainWindow::HistoryWidgets(QVector<LetterStruct> RelatedLetters)
+{
+    if (!RelatedLetters.isEmpty())
+    {
+        QString FullRepresentation{};
+        for (int i = 0; i < RelatedLetters.size(); i++)
+        {
+            FullRepresentation += (QString)RelatedLetters[i];
+            if (i != RelatedLetters.size() - 1)
+            {
+                FullRepresentation += "\n--------------------------------\n";
+            }
+        }
+        ui->LetterHistoryText->setText(FullRepresentation);
+        ui->LetterTypeStack->setCurrentIndex((int)ELetterPagesIndex::ReplyPage);
+    }
+}
+
+void MainWindow::on_NewLetterButton_released()
+{
+    ui->LetterTypeStack->setCurrentIndex((int)ELetterPagesIndex::NewLetterPage);
+
+    ui->EmailLine->setText("");
+    ui->SubjectLine->setText("");
+    ui->LetterBodyText->setText("");
 }
 
