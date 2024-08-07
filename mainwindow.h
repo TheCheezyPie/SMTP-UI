@@ -45,11 +45,18 @@ private slots:
 
     void HistoryWidgets(QVector<LetterStruct> RelatedLetters);
 
+    void on_SendReplyButton_released();
+
 private:
     Ui::MainWindow *ui;
     bool isValidEmail(const QString &email);
     bool CheckEmails(const QLineEdit* Container);
 
     QString m_current_user{"kormak1752@gmail.com"};
+    // and connect the signals
+    void SpawnNewHistoryUnit(const LetterStruct& Letter);
+
+    bool WriteLettersToFile(const QVector<LetterStruct>& Letters, const QString& FullFileName);
+    QVector<LetterStruct> ReadLettersFromFile(const QString& FullFileName);
 };
 #endif // MAINWINDOW_H

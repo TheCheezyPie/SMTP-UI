@@ -90,6 +90,15 @@ void MainWindow::on_EmailLine_editingFinished()
 }
 
 
+void MainWindow::SpawnNewHistoryUnit(const LetterStruct& Letter)
+{
+    MailHistoryUnit* NewHistoryUnit = new MailHistoryUnit(Letter);
+    ui->MailHistoryScrollArea->layout()->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    ui->MailHistoryScrollArea->layout()->addWidget(NewHistoryUnit);
+
+    connect(NewHistoryUnit, SIGNAL(OnMouseReleased(QVector<LetterStruct>)), this, SLOT(HistoryWidgets(QVector<LetterStruct>)));
+}
+
 void MainWindow::on_SendButton_released()
 {
     static QRegularExpression SplitRegex("\\s*,\\s*|\\s+");
@@ -110,28 +119,68 @@ void MainWindow::on_SendButton_released()
         QString FileName = m_current_user + "_" + Recipient + "_" + CurrentDate.toString("dd-MM-yyyy");
         QString FullFileName = TempFilePath + FileName;
 
-        QFile file(FullFileName);
-        if (!file.open(QIODevice::WriteOnly))
-        {
-            qDebug() << "Could not open file for writing";
-            return;
-        }
-
-        QDataStream out(&file);
-        out.setVersion(QDataStream::Qt_6_7);
-
-        LetterStruct Letter(m_current_user, Recipient, CurrentDate, LetterSubject, LetterBody);
-
-        MailHistoryUnit* NewHistoryUnit = new MailHistoryUnit(Letter);
-        ui->MailHistoryScrollArea->layout()->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-        ui->MailHistoryScrollArea->layout()->addWidget(NewHistoryUnit);
-
-        connect(NewHistoryUnit, SIGNAL(OnMouseReleased(QVector<LetterStruct>)), this, SLOT(HistoryWidgets(QVector<LetterStruct>)));
-
-        out << Letter;
-
-        file.close();
+        QVector<LetterStruct> Letters {LetterStruct(m_current_user, Recipient, CurrentDate, LetterSubject, LetterBody)};
+        SpawnNewHistoryUnit(Letters[0]);
+        WriteLettersToFile(Letters, FullFileName);
     }
+}
+
+bool MainWindow::WriteLettersToFile(const QVector<LetterStruct>& Letters, const QString& FullFileName)
+{
+    QFile file(FullFileName);
+    if (!file.open(QIODevice::ReadWrite))
+    {
+        qDebug() << "Could not open file for writing";
+        return false;
+    }
+
+    if (Letters.isEmpty())
+    {
+        qDebug() << "Trying to write 0 letters!";
+        return false;
+    }
+
+    QDataStream out(&file);
+    out.setVersion(QDataStream::Qt_6_7);
+
+    out << Letters.size();
+
+    for (const auto& Letter : Letters)
+    {
+        out << Letter;
+    }
+
+    file.close();
+
+    return true;
+}
+
+QVector<LetterStruct> MainWindow::ReadLettersFromFile(const QString& FullFileName)
+{
+    QFile file(FullFileName);
+    QVector<LetterStruct> Letters;
+
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        qDebug() << "Could not open file for reading";
+        return Letters;
+    }
+
+    QDataStream in(&file);
+    in.setVersion(QDataStream::Qt_6_7);  // Ensure compatibility with Qt version
+
+    int size;
+    in >> size;
+
+    for (int i = 0; i < size; i++)
+    {
+        LetterStruct Letter;
+        in >> Letter;
+        Letters.append(Letter);
+    }
+
+    file.close();
+    return Letters;
 }
 
 void MainWindow::HistoryWidgets(QVector<LetterStruct> RelatedLetters)
@@ -159,5 +208,11 @@ void MainWindow::on_NewLetterButton_released()
     ui->EmailLine->setText("");
     ui->SubjectLine->setText("");
     ui->LetterBodyText->setText("");
+}
+
+
+void MainWindow::on_SendReplyButton_released()
+{
+
 }
 
