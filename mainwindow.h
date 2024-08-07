@@ -52,11 +52,16 @@ private:
     bool isValidEmail(const QString &email);
     bool CheckEmails(const QLineEdit* Container);
 
-    QString m_current_user{"kormak1752@gmail.com"};
     // and connect the signals
     void SpawnNewHistoryUnit(const LetterStruct& Letter);
+    void SpawnNewHistoryUnit(const QVector<LetterStruct>& Letter);
+    void PopulateMailsHistory();
 
     bool WriteLettersToFile(const QVector<LetterStruct>& Letters, const QString& FullFileName);
     QVector<LetterStruct> ReadLettersFromFile(const QString& FullFileName);
+
+    QString m_current_user{"kormak1752@gmail.com"};
+    const QString m_temp_file_path {R"*(D:\SoftServe\Temp\)*"};
+    void CleanNewLetterFields();
 };
 #endif // MAINWINDOW_H

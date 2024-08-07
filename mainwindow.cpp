@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    PopulateMailsHistory();
 }
 
 MainWindow::~MainWindow()
@@ -89,14 +91,49 @@ void MainWindow::on_EmailLine_editingFinished()
     CheckEmails(ui->EmailLine);
 }
 
-
 void MainWindow::SpawnNewHistoryUnit(const LetterStruct& Letter)
 {
-    MailHistoryUnit* NewHistoryUnit = new MailHistoryUnit(Letter);
+    QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(ui->MailHistoryScrollArea->layout());
+    MailHistoryUnit* NewHistoryUnit = nullptr;
+
+    if (layout)
+    {
+        NewHistoryUnit = new MailHistoryUnit(Letter);
+        layout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+        layout->insertWidget(0, NewHistoryUnit);
+    }
+
+    connect(NewHistoryUnit, SIGNAL(OnMouseReleased(QVector<LetterStruct>)), this, SLOT(HistoryWidgets(QVector<LetterStruct>)));
+}
+
+void MainWindow::SpawnNewHistoryUnit(const QVector<LetterStruct>& Letters)
+{
+    MailHistoryUnit* NewHistoryUnit = new MailHistoryUnit(Letters);
     ui->MailHistoryScrollArea->layout()->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     ui->MailHistoryScrollArea->layout()->addWidget(NewHistoryUnit);
 
     connect(NewHistoryUnit, SIGNAL(OnMouseReleased(QVector<LetterStruct>)), this, SLOT(HistoryWidgets(QVector<LetterStruct>)));
+}
+
+void MainWindow::PopulateMailsHistory()
+{
+    QDir dir(m_temp_file_path);
+
+    if (!dir.exists())
+    {
+        qDebug() << "Directory does not exist:" << m_temp_file_path;
+    }
+
+    dir.setSorting(QDir::Time);
+    dir.setFilter(QDir::Files);
+    QStringList files = dir.entryList();
+
+    for (const QString &fileName : files)
+    {
+        qDebug() << fileName;
+        QVector<LetterStruct> Letters = ReadLettersFromFile(m_temp_file_path + fileName);
+        if (!Letters.isEmpty()) SpawnNewHistoryUnit(Letters);
+    }
 }
 
 void MainWindow::on_SendButton_released()
@@ -115,14 +152,16 @@ void MainWindow::on_SendButton_released()
     {
         QDate CurrentDate = QDate::currentDate();
 
-        QString TempFilePath = R"*(D:\SoftServe\Temp\)*";
-        QString FileName = m_current_user + "_" + Recipient + "_" + CurrentDate.toString("dd-MM-yyyy");
-        QString FullFileName = TempFilePath + FileName;
+        QString FileName = m_current_user + "_" + Recipient + "_" + CurrentDate.toString("dd-MM-yyyy") + ".txt";
+        QString FullFileName = m_temp_file_path + FileName;
 
-        QVector<LetterStruct> Letters {LetterStruct(m_current_user, Recipient, CurrentDate, LetterSubject, LetterBody)};
-        SpawnNewHistoryUnit(Letters[0]);
+        LetterStruct Letter(m_current_user, Recipient, CurrentDate, LetterSubject, LetterBody);
+        QVector<LetterStruct> Letters {Letter};
+        SpawnNewHistoryUnit(Letter);
         WriteLettersToFile(Letters, FullFileName);
     }
+
+    CleanNewLetterFields();
 }
 
 bool MainWindow::WriteLettersToFile(const QVector<LetterStruct>& Letters, const QString& FullFileName)
@@ -133,12 +172,13 @@ bool MainWindow::WriteLettersToFile(const QVector<LetterStruct>& Letters, const 
         qDebug() << "Could not open file for writing";
         return false;
     }
-
     if (Letters.isEmpty())
     {
         qDebug() << "Trying to write 0 letters!";
         return false;
     }
+
+    qDebug() << "Writing to " << FullFileName << " " << Letters.size() << " letters";
 
     QDataStream out(&file);
     out.setVersion(QDataStream::Qt_6_7);
@@ -162,17 +202,24 @@ QVector<LetterStruct> MainWindow::ReadLettersFromFile(const QString& FullFileNam
 
     if (!file.open(QIODevice::ReadOnly))
     {
-        qDebug() << "Could not open file for reading";
+        qDebug() << "Could not open file " << FullFileName << " for reading";
+        return Letters;
+    }
+    if (!QFile::exists(FullFileName))
+    {
+        qDebug() << "The file " << FullFileName << " was not found";
         return Letters;
     }
 
+    qDebug() << "Reading from: " << FullFileName;
+
     QDataStream in(&file);
-    in.setVersion(QDataStream::Qt_6_7);  // Ensure compatibility with Qt version
 
-    int size;
+    qsizetype size;
     in >> size;
+    qDebug() << size;
 
-    for (int i = 0; i < size; i++)
+    for (qsizetype i = 0; i < size; i++)
     {
         LetterStruct Letter;
         in >> Letter;
@@ -201,13 +248,18 @@ void MainWindow::HistoryWidgets(QVector<LetterStruct> RelatedLetters)
     }
 }
 
+void MainWindow::CleanNewLetterFields()
+{
+    ui->EmailLine->setText("");
+    ui->SubjectLine->setText("");
+    ui->LetterBodyText->setText("");
+}
+
 void MainWindow::on_NewLetterButton_released()
 {
     ui->LetterTypeStack->setCurrentIndex((int)ELetterPagesIndex::NewLetterPage);
 
-    ui->EmailLine->setText("");
-    ui->SubjectLine->setText("");
-    ui->LetterBodyText->setText("");
+    CleanNewLetterFields();
 }
 
 
